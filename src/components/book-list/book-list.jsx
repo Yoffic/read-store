@@ -11,22 +11,11 @@ import ErrorIndicator from '../error-indicator';
 import './book-list.css';
 
 const BookList = (props) => {
-  const {
-    books,
-    loading,
-    error,
-    bookstoreService,
-    booksLoaded,
-    booksRequested,
-    booksError,
-  } = props;
+  const { books, loading, error, fetchBooks } = props;
 
   useEffect(() => {
-    booksRequested();
-    bookstoreService.getBooks()
-      .then((data) => booksLoaded(data))
-      .catch((err) => booksError(err));
-  }, [bookstoreService, booksLoaded, booksRequested, booksError]);
+    fetchBooks();
+  }, [fetchBooks]);
 
   if (loading) return <Spinner />;
 
@@ -42,11 +31,14 @@ const BookList = (props) => {
 const mapStateToProps = ({ books, loading, error }) => (
   { books, loading, error }
 );
-const createActions = {
-  booksLoaded: actions.booksLoaded,
-  booksRequested: actions.booksRequested,
-  booksError: actions.booksError,
-};
+const createActions = (dispatch, { bookstoreService }) => ({
+  fetchBooks: () => {
+    dispatch(actions.booksRequested());
+    bookstoreService.getBooks()
+      .then((data) => dispatch(actions.booksLoaded(data)))
+      .catch((err) => dispatch(actions.booksError(err)));
+  },
+});
 
 export default compose(
   withBookstoreService(),
