@@ -5,14 +5,17 @@ import { withBookstoreService } from '../hoc';
 import { booksLoaded } from '../../actions';
 import { compose } from '../../utils';
 import BookListItem from '../book-list-item';
+import Spinner from '../spinner';
 
 import './book-list.css';
 
-const BookList = ({ books, bookstoreService, booksLoaded }) => {
+const BookList = ({ books, loading, bookstoreService, booksLoaded }) => {
   useEffect(() => {
-    const data = bookstoreService.getBooks();
-    booksLoaded(data);
+    bookstoreService.getBooks()
+      .then((data) => booksLoaded(data));
   }, [bookstoreService, booksLoaded]);
+
+  if (loading) return <Spinner />;
 
   return (
     <ul className="book-list">
@@ -21,7 +24,7 @@ const BookList = ({ books, bookstoreService, booksLoaded }) => {
   );
 };
 
-const mapStateToProps = ({ books }) => ({ books });
+const mapStateToProps = ({ books, loading }) => ({ books, loading });
 const createActions = { booksLoaded };
 
 export default compose(
