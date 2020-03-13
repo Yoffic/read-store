@@ -6,6 +6,8 @@ import { booksLoaded } from '../../actions';
 import { compose } from '../../utils';
 import BookListItem from '../book-list-item';
 
+import './book-list.css';
+
 const BookList = ({ books, bookstoreService, booksLoaded }) => {
   useEffect(() => {
     const data = bookstoreService.getBooks();
@@ -13,7 +15,7 @@ const BookList = ({ books, bookstoreService, booksLoaded }) => {
   }, [bookstoreService, booksLoaded]);
 
   return (
-    <ul>
+    <ul className="book-list">
       {books.map((book) => <BookListItem key={book.id} book={book}/>)}
     </ul>
   );

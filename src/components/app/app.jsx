@@ -5,12 +5,12 @@ import { HomePage, CartPage } from '../pages';
 
 const App = () => {
   return (
-    <div>
+    <main role="main" className="container">
       <Switch>
         <Route exact path='/' component={HomePage}/>
         <Route path='/cartpage' component={CartPage}/>
       </Switch>
-    </div>
+    </main>
   );
 };
 
