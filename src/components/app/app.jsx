@@ -1,28 +1,17 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import ErrorBoundary from '../error-boundary';
-import Spinner from '../spinner';
+import { HomePage, CartPage } from '../pages';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ loading: false });
-  }
-
-  render() {
-    const { loading } = this.state;
-    
-    return (
-      <ErrorBoundary>
-        {loading && <Spinner/>}
-        {!loading && <h2 className="display-4">Welcome to our Store!</h2>}
-      </ErrorBoundary>
-    );
-  }
+const App = () => {
+  return (
+    <div>
+      <Switch>
+        <Route exact path='/' component={HomePage}/>
+        <Route path='/cartpage' component={CartPage}/>
+      </Switch>
+    </div>
+  );
 };
+
+export default App;
