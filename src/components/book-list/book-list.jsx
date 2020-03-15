@@ -10,7 +10,15 @@ import ErrorIndicator from '../error-indicator';
 
 import './book-list.css';
 
-const BookList = (props) => {
+const BookList = ({ books }) => {
+  return (
+    <ul className="book-list">
+      {books.map((book) => <BookListItem key={book.id} book={book}/>)}
+    </ul>
+  );
+};
+
+const BookListContainer = (props) => {
   const { books, loading, error, fetchBooks } = props;
 
   useEffect(() => {
@@ -21,26 +29,17 @@ const BookList = (props) => {
 
   if (error) return <ErrorIndicator />;
 
-  return (
-    <ul className="book-list">
-      {books.map((book) => <BookListItem key={book.id} book={book}/>)}
-    </ul>
-  );
+  return <BookList books={books} />;
 };
 
 const mapStateToProps = ({ books, loading, error }) => (
   { books, loading, error }
 );
 const createActions = (dispatch, { bookstoreService }) => ({
-  fetchBooks: () => {
-    dispatch(actions.booksRequested());
-    bookstoreService.getBooks()
-      .then((data) => dispatch(actions.booksLoaded(data)))
-      .catch((err) => dispatch(actions.booksError(err)));
-  },
+  fetchBooks: actions.fetchBooks(bookstoreService, dispatch),
 });
 
 export default compose(
   withBookstoreService(),
   connect(mapStateToProps, createActions),
-)(BookList);
+)(BookListContainer);
