@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { withBookstoreService } from '../hoc';
@@ -10,16 +11,22 @@ import ErrorIndicator from '../error-indicator';
 
 import './book-list.css';
 
-const BookList = ({ books }) => {
+const BookList = ({ books, onAddToCart }) => {
   return (
     <ul className="book-list">
-      {books.map((book) => <BookListItem key={book.id} book={book}/>)}
+      {books.map((book) => (
+        <BookListItem
+          key={book.id}
+          book={book}
+          onAddToCart={() => onAddToCart(book.id)}
+        />
+      ))}
     </ul>
   );
 };
 
 const BookListContainer = (props) => {
-  const { books, loading, error, fetchBooks } = props;
+  const { books, loading, error, fetchBooks, onAddToCart } = props;
 
   useEffect(() => {
     fetchBooks();
@@ -29,15 +36,16 @@ const BookListContainer = (props) => {
 
   if (error) return <ErrorIndicator />;
 
-  return <BookList books={books} />;
+  return <BookList books={books} onAddToCart={onAddToCart} />;
 };
 
-const mapStateToProps = ({ books, loading, error }) => (
+const mapStateToProps = ({ booksList: { books, loading, error } }) => (
   { books, loading, error }
 );
-const createActions = (dispatch, { bookstoreService }) => ({
-  fetchBooks: actions.fetchBooks(bookstoreService, dispatch),
-});
+const createActions = (dispatch, { bookstoreService }) => bindActionCreators({
+  fetchBooks: actions.fetchBooks(bookstoreService),
+  onAddToCart: actions.addBookToCart,
+}, dispatch);
 
 export default compose(
   withBookstoreService(),
