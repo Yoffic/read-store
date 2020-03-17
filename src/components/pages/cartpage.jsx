@@ -1,8 +1,12 @@
 import React from 'react';
 
+import ShoppingCartTable from '../shopping-cart-table';
+
 const CartPage = () => {
   return (
-    <h3 className="display-4">Cart Page</h3>
+    <div>
+      <ShoppingCartTable />
+    </div>
   );
 };
 

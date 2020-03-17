@@ -1,25 +1,40 @@
 .main-header {
   border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
+  margin-top: .6rem;
+  padding-bottom: .6rem;
+  margin-bottom: 2rem;
 }
 
 .main-header .logo {
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 2.5rem;
-  padding-left: 1rem;
+  font-size: 2rem;
+  color: #343a40;
+}
+
+.main-header .logo:hover {
+  color:#17a2b8;
+}
+
+.main-header a:hover {
+  text-decoration: none;
 }
 
 .main-header .shopping-cart {
-  align-self: center;
   font-size: 1.3rem;
-  padding-right: 1rem;
+  color: #17a2b8;
+}
+
+.main-header .shopping-cart:hover {
+  color: #343a40;
 }
 
 .main-header .shopping-cart .cart-icon {
   font-size: 2.2rem;
-  color: cadetblue;
   margin-right: .63rem;
 }
 
+@media screen and (min-width: 768px) {
+  .main-header .logo {
+    font-size: 2.5rem;
+  }
+}

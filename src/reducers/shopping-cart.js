@@ -39,15 +39,19 @@ const updateOrder = (bookId, state, quantity) => {
   const item = cartItems[idx];
 
   const newItem = updateCartItem(item, book, quantity);
+  const newCartItems = updatedCartItems(cartItems, newItem, idx);
+  const newOrderTotal = newCartItems.reduce((sum, item) => sum + item.totalPrice, 0);
+  const newItemsTotal = newCartItems.reduce((sum, item) => sum + item.count, 0);
   return {
-    cartItems: updatedCartItems(cartItems, newItem, idx),
-    orderTotal: 0,
+    cartItems: newCartItems,
+    orderTotal: newOrderTotal,
+    itemsTotal: newItemsTotal,
   };
 }
 
 const updateShoppingCart = (state, action) => {
   if (!state) {
-    return { cartItems: [], orderTotal: 0 };
+    return { cartItems: [], orderTotal: 0, itemsTotal: 0 };
   }
   switch (action.type) {
     case 'ADD_BOOK':

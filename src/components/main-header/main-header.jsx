@@ -1,22 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './main-header.css';
 
-const MainHeader = ({ numItems, total }) => {
+const mapStateToProps = ({ shoppingCart: { itemsTotal, orderTotal } }) => ({
+  itemsTotal,
+  orderTotal,
+});
+
+const MainHeader = ({ itemsTotal, orderTotal }) => {
   return (
-    <header className="main-header row">
-      <Link to=''>
-        <div className="logo text-dark">ReadStore</div>
+    <header className="main-header d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <Link to='/'>
+        <div className="logo">ReadStore</div>
       </Link>
       <Link to="/cartpage">
         <div className="shopping-cart">
           <i className="cart-icon fa fa-shopping-cart" />
-          {numItems} items (${total})
+          {itemsTotal} items (${orderTotal})
         </div>
       </Link>
     </header>
   );
 };
 
-export default MainHeader;
+export default connect(mapStateToProps, null)(MainHeader);
