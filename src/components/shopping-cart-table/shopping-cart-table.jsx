@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import './shopping-cart-table.css';
 
 const ShoppingCartTable = (props) => {
   const {
@@ -12,46 +11,45 @@ const ShoppingCartTable = (props) => {
     onDelete
   } = props;
 
-  const renderRow = (item, idx) => {
+  const renderRow = (item) => {
     const { id, title, count, totalPrice } = item;
     return (
       <tr key={id}>
-        <td>{idx + 1}</td>
-        <td>{title}</td>
-        <td>{count}</td>
-        <td>${totalPrice}</td>
         <td>
-          <button
-            onClick={() => onDelete(id)}
-            className="btn btn-outline-danger btn-sm float-right">
-            <i className="fa fa-trash-o" />
-          </button>
-          <button
-            onClick={() => onIncrease(id)}
-            className="btn btn-outline-success btn-sm float-right">
-            <i className="fa fa-plus-circle" />
-          </button>
-          <button
-            onClick={() => onDecrease(id)}
-            className="btn btn-outline-warning btn-sm float-right">
-            <i className="fa fa-minus-circle" />
-          </button>
+          {title}
+          <div className="mt-2">
+            <button
+              onClick={() => onDecrease(id)}
+              className="btn btn-outline-warning btn-sm">
+              <i className="fa fa-minus-circle" />
+            </button>
+            <button
+              onClick={() => onIncrease(id)}
+              className="btn btn-outline-success btn-sm ml-1">
+              <i className="fa fa-plus-circle" />
+            </button>
+            <button
+              onClick={() => onDelete(id)}
+              className="btn btn-outline-danger btn-sm ml-1">
+              <i className="fa fa-trash-o" />
+            </button>
+          </div>
         </td>
+        <td className="text-center">{count}</td>
+        <td className="text-center">${totalPrice}</td>
       </tr>
     );
   };
 
   return (
-    <div className="shopping-cart-table">
+    <div className="shopping-cart-table table-responsive">
       <h2>Your Order</h2>
       <table className="table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Item</th>
-            <th>Count</th>
-            <th>Price</th>
-            <th>Action</th>
+            <th scope="col">Item</th>
+            <th scope="col" className="text-center">Count</th>
+            <th scope="col" className="text-center">Price</th>
           </tr>
         </thead>
 
@@ -60,7 +58,7 @@ const ShoppingCartTable = (props) => {
         </tbody>
       </table>
 
-      <div className="total">
+      <div className="text-right h5 mr-2">
         Total: ${total}
       </div>
     </div>

@@ -5,13 +5,13 @@ import './book-list-item.css';
 const BookListItem = ({ book, onAddToCart }) => {
   const { title, author, price, coverImage } = book;
   return (
-    <li>
-      <div className="book-list-item">
+    <li className="col-lg-6">
+      <div className="book-list-item d-flex flex-column flex-md-row">
         <div className="book-cover">
           <img src={coverImage} alt="book cover" />
         </div>
-        <div className="book-details">
-          <span className="book-title">{title}</span>
+        <div className="book-details mt-2 d-flex flex-column justify-content-between align-items-start">
+          <div className="book-title">{title}</div>
           <div className="book-author">{author}</div>
           <div className="book-price">${price}</div>
           <button

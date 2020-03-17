@@ -9,11 +9,9 @@ import BookListItem from '../book-list-item';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 
-import './book-list.css';
-
 const BookList = ({ books, onAddToCart }) => {
   return (
-    <ul className="book-list">
+    <ul className="list-unstyled row">
       {books.map((book) => (
         <BookListItem
           key={book.id}
@@ -42,12 +40,12 @@ const BookListContainer = (props) => {
 const mapStateToProps = ({ booksList: { books, loading, error } }) => (
   { books, loading, error }
 );
-const createActions = (dispatch, { bookstoreService }) => bindActionCreators({
+const actionCreators = (dispatch, { bookstoreService }) => bindActionCreators({
   fetchBooks: actions.fetchBooks(bookstoreService),
   onAddToCart: actions.addBookToCart,
 }, dispatch);
 
 export default compose(
   withBookstoreService(),
-  connect(mapStateToProps, createActions),
+  connect(mapStateToProps, actionCreators),
 )(BookListContainer);

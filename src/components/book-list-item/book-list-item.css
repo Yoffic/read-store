@@ -14,11 +14,7 @@
 }
 
 .book-list-item .book-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding-bottom: .63rem;
-  align-items: flex-start;
 }
 
 .book-list-item .book-details .book-title {
