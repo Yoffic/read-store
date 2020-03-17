@@ -5,7 +5,7 @@ import './book-list-item.css';
 const BookListItem = ({ book, onAddToCart }) => {
   const { title, author, price, coverImage } = book;
   return (
-    <li className="col-lg-6">
+    <li className="col-md-6">
       <div className="book-list-item d-flex flex-column flex-md-row">
         <div className="book-cover">
           <img src={coverImage} alt="book cover" />
