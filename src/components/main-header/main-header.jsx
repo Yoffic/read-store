@@ -15,7 +15,7 @@ const MainHeader = ({ itemsTotal, orderTotal }) => {
       <Link to='/'>
         <div className="logo">ReadStore</div>
       </Link>
-      <Link to="/cartpage">
+      <Link to='/cartpage'>
         <div className="shopping-cart">
           <i className="cart-icon fa fa-shopping-cart" />
           {itemsTotal} items (${orderTotal})
