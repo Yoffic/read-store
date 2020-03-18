@@ -32,7 +32,7 @@ const BookListContainer = (props) => {
 
   if (loading) return <Spinner />;
 
-  if (error) return <ErrorIndicator />;
+  if (error) return <ErrorIndicator fetchBooks={fetchBooks} />;
 
   return <BookList books={books} onAddToCart={onAddToCart} />;
 };
